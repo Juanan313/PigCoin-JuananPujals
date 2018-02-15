@@ -48,4 +48,15 @@ public class BlockChainTest {
         blockChainTest.addOrigin(transaccionTest2);
         assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
     }
+
+    @Test
+    public void loadInputTransactions() {
+
+        blockChainTest.addOrigin(transaccionTest);
+        blockChainTest.addOrigin(transaccionTest2);
+
+        blockChainTest.loadInputTransactions(walletInput);
+
+        assertEquals(blockChainTest.loadInputTransactions(walletInput).size(), 1);
+    }
 }

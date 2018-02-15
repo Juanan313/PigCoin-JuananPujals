@@ -1,5 +1,7 @@
 package org.mvpigs.PigCoins;
 
+import java.security.PublicKey;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class BlockChain {
@@ -24,5 +26,21 @@ public class BlockChain {
         }
     }
 
+    /* Comprueba en el blockChain todas las transacciones cuya pkRecipt coincida con la Address de la Wallet que le pasamos,
+     y las devuelve en un lista */
+     
+    public ArrayList<Transaction> loadInputTransactions(Wallet wallet) {
+        
+        PublicKey addres = wallet.getAddress();
+        ArrayList<Transaction> inputTransactions = new ArrayList<Transaction>();
 
+        for (Transaction transaccion : blockChain) {
+            if (transaccion.getpKey_recipient() == addres) {
+                inputTransactions.add(transaccion);
+            }   
+        }
+        return inputTransactions;
+    }
+
+    
 }
