@@ -20,6 +20,11 @@ public class BlockChain {
         }
     }
 
+    public void sumarize(int index) {
+        Transaction transaction = blockChain.get(index);
+        System.out.println(transaction.toString());
+    }
+
     public LinkedList<Transaction> getBlockChain() {
         return this.blockChain;
     }

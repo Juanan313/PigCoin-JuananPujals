@@ -71,4 +71,9 @@ public class BlockChainTest {
     public void sumarizeTest() {
         blockChainTest.sumarize();
     }
+
+    @Test
+    public void sumarizeOverloadTest() {
+        blockChainTest.sumarize(1);
+    }
 }
