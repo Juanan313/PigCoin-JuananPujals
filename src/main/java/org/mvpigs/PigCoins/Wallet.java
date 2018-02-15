@@ -10,9 +10,9 @@ public class Wallet {
 
     private PublicKey address;
     private PrivateKey sKey;
-    private int total_input;
-    private int total_output;
-    private int balance;
+    private double total_input;
+    private double total_output;
+    private double balance;
     private ArrayList<Transaction> inputTransactions = new ArrayList<Transaction>();
     private ArrayList<Transaction> outputTransactions = new ArrayList<Transaction>();
 
@@ -32,27 +32,27 @@ public class Wallet {
 		this.sKey = sKey;
 	}
 
-	public int getTotal_input() {
+	public double getTotal_input() {
 		return total_input;
 	}
 
-	public void setTotal_input(int total_input) {
+	public void setTotal_input(double total_input) {
 		this.total_input = total_input;
 	}
 
-	public int getTotal_output() {
+	public double getTotal_output() {
 		return total_output;
 	}
 
-	public void setTotal_output(int total_output) {
+	public void setTotal_output(double total_output) {
 		this.total_output = total_output;
 	}
 
-	public int getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(int balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
@@ -82,7 +82,7 @@ public class Wallet {
 
     public void loadCoins(BlockChain bChain) {
 
-        int[] totalTrans = bChain.loadWallet(this.getAddress());
+        double[] totalTrans = bChain.loadWallet(this.getAddress());
         this.setTotal_input(totalTrans[0]);
         this.setTotal_output(totalTrans[1]);
     }
@@ -94,4 +94,6 @@ public class Wallet {
     public void loadOutputTransactions(BlockChain bChain) {
         this.setOutputTransactions(bChain.loadOutputTransactions(this.getAddress()));
     }
+
+    public double collectCoins(pigcoins)
 }

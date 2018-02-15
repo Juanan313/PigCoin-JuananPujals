@@ -68,10 +68,10 @@ public class BlockChain {
         } return outPutTransactions;
     }
 
-    public int[] loadWallet(PublicKey address) {
-        int totalInput = 0;
-        int totalOutput = 0;
-        int[] totalTrans = new int[2];
+    public double[] loadWallet(PublicKey address) {
+        double totalInput = 0d;
+        double totalOutput = 0d;
+        double[] totalTrans = new double[2];
 
         for (Transaction transaccion : this.loadInputTransactions(address)) {
             totalInput += transaccion.getPigCoins();
@@ -86,6 +86,13 @@ public class BlockChain {
         return totalTrans;
 
     }
+
+    public boolean isSignatureValid(PublicKey pKey_sender, String message, byte[] signedTransaction) {
+
+        return GenSig.verify(pKey_sender, message, signedTransaction);
+
+    }
+
 
 
     

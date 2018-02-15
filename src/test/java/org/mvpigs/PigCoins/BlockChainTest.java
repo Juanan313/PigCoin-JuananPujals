@@ -2,6 +2,7 @@ package org.mvpigs.PigCoins;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +28,7 @@ public class BlockChainTest {
         transaccionTest = new Transaction("hash1", "0", 20, "You're the real mvpig!");
         transaccionTest.setpKey_sender(walletOutput.getAddress());
         transaccionTest.setpKey_recipient(walletInput.getAddress());
+        transaccionTest.setSignature(GenSig.sign(walletOutput.getSKey(),transaccionTest.getMessage()));
 
         transaccionTest2 = new Transaction("hash2", "hash1", 10, "You're not the real mvpig!");
         transaccionTest2.setpKey_sender(walletInput.getAddress());
@@ -81,7 +83,12 @@ public class BlockChainTest {
         blockChainTest.loadWallet(walletInput.getAddress());
 
         walletInput.loadCoins(this.blockChainTest);
-        assertEquals(walletInput.getTotal_input(), 20);
-        assertEquals(walletInput.getTotal_output(), 10);
+        assertEquals(walletInput.getTotal_input(), 20, 0.1);
+        assertEquals(walletInput.getTotal_output(), 10, 0.1);
+    }
+    @Test
+    public void isSignaturaValid() {
+
+       assertTrue(blockChainTest.isSignatureValid(transaccionTest.getpKey_sender(), transaccionTest.getMessage(), transaccionTest.getSignature()));
     }
 }
