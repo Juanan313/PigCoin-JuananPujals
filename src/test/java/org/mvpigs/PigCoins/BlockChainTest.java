@@ -33,33 +33,28 @@ public class BlockChainTest {
         transaccionTest2.setpKey_recipient(walletOutput.getAddress());
 
         blockChainTest = new BlockChain();
+
+        blockChainTest.addOrigin(transaccionTest);
+        blockChainTest.addOrigin(transaccionTest2);
     }
 
     // Test AddOrigin - añade transacciones a BlockChain
     @Test
     public void blockChainAddOriginTest() {
 
-        blockChainTest.addOrigin(transaccionTest);
-        blockChainTest.addOrigin(transaccionTest2);
-
         assertEquals(blockChainTest.getBlockChain().size(), 2);
     }
+
     // Test isConsumedCoinValid , comprueba que la transaccion que se intenta realizar no se ha utilizado ya
     @Test
     public void isConsumedCoinValid() {
 
-        blockChainTest.addOrigin(transaccionTest);
-        blockChainTest.addOrigin(transaccionTest2);
         assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
     }
 
     // Test load
     @Test
     public void loadInputTransactions() {
-
-        blockChainTest.addOrigin(transaccionTest);
-        blockChainTest.addOrigin(transaccionTest2);
-
 
         assertEquals(blockChainTest.loadInputTransactions(walletInput.getAddress()).size(), 1);
         assertEquals(blockChainTest.loadInputTransactions(walletVacia.getAddress()).size(), 0);
@@ -68,11 +63,12 @@ public class BlockChainTest {
     @Test
     public void loadOutputTransactionsTest() {
 
-        blockChainTest.addOrigin(transaccionTest);
-        blockChainTest.addOrigin(transaccionTest2);
-
-
         assertEquals(blockChainTest.loadOutputTransactions(walletInput.getAddress()).size(), 1);
         assertEquals(blockChainTest.loadOutputTransactions(walletVacia.getAddress()).size(), 0);
+    }
+
+    @Test
+    public void sumarizeTest() {
+        blockChainTest.sumarize();
     }
 }

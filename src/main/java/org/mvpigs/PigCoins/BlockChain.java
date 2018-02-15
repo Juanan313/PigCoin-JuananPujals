@@ -13,6 +13,13 @@ public class BlockChain {
         blockChain.add(transaction);
     }
 
+    public void sumarize() {
+        
+        for (Transaction transaccion : blockChain) {
+            System.out.println(transaccion.toString());
+        }
+    }
+
     public LinkedList<Transaction> getBlockChain() {
         return this.blockChain;
     }
