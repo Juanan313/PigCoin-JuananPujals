@@ -78,7 +78,7 @@ public class Transaction {
     }
 
     public String toString() {
-        return "hash = "+this.getHash()+"/n"+"prev_has = "+this.getHash()+"/n"+"pKey_Sender = "+this.getpKey_sender()+"/n"+"pKey_Recipient = "+this.pigCoins+"/n"+"message = "+this.getMessage();
+        return "hash = "+this.getHash()+"\n"+"prev_has = "+this.getHash()+"\n"+"pKey_Sender = "+this.getpKey_sender()+"\n"+"pKey_Recipient = "+this.getpKey_recipient()+"\n"+"pigCoins = "+this.getPigCoins()+"\n"+"message = "+this.getMessage();
     }
 
 }
