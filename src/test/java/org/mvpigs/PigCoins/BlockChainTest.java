@@ -1,6 +1,7 @@
 package org.mvpigs.PigCoins;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,5 +40,12 @@ public class BlockChainTest {
         blockChainTest.addOrigin(transaccionTest2);
 
         assertEquals(blockChainTest.getBlockChain().size(), 2);
+    }
+    @Test
+    public void isConsumedCoinValid() {
+
+        blockChainTest.addOrigin(transaccionTest);
+        blockChainTest.addOrigin(transaccionTest2);
+        assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
     }
 }

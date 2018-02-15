@@ -15,8 +15,14 @@ public class BlockChain {
         return this.blockChain;
     }
 
+    public Boolean isConsumedCoinValid(Transaction consumedCoins) {
+
+        if (blockChain.contains(consumedCoins)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
-
-    
 }
