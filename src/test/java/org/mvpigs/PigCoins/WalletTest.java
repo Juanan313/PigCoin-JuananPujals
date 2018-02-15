@@ -10,16 +10,18 @@ public class WalletTest {
 
     Wallet walletTest;
     Wallet walletTest2;
-    @Before 
+
+    @Before
     public void setUp() {
         walletTest = new Wallet();
         walletTest2 = new Wallet();
 
     }
+
     /* Compruebo que la funcion GenerateKeyPair funcione*/
     @Test
     public void walletGenerateKeyPairTest() {
-        
+
         walletTest.generateKeyPair();
         assertNotNull(walletTest.getAddress());
         assertNotNull(walletTest.getSKey());

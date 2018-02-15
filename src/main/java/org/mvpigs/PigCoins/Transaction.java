@@ -4,13 +4,13 @@ import java.security.PublicKey;
 
 public class Transaction {
 
-    private String hash = "";
-    private String prev_hash = "";
-    private String message = "";
-    private int pigCoins = 0;
-    private PublicKey pKey_sender;
-    private PublicKey pKey_recipient;
-    private byte[] signature;
+	private String hash = "";
+	private String prev_hash = "";
+	private String message = "";
+	private int pigCoins = 0;
+	private PublicKey pKey_sender;
+	private PublicKey pKey_recipient;
+	private byte[] signature;
 
 	public String getHash() {
 		return hash;
@@ -68,17 +68,18 @@ public class Transaction {
 		this.signature = signature;
 	}
 
-    public Transaction(String hash, String prev_hash, int pigCoins,
-            String message) {
-        this.setHash(hash);
-        this.setPrev_hash(prev_hash);
-        this.setMessage(message);
-        this.setPigCoins(pigCoins);
+	public Transaction(String hash, String prev_hash, int pigCoins, String message) {
+		this.setHash(hash);
+		this.setPrev_hash(prev_hash);
+		this.setMessage(message);
+		this.setPigCoins(pigCoins);
 
-    }
+	}
 
-    public String toString() {
-        return "hash = "+this.getHash()+"\n"+"prev_has = "+this.getHash()+"\n"+"pKey_Sender = "+this.getpKey_sender().hashCode()+"\n"+"pKey_Recipient = "+this.getpKey_recipient().hashCode()+"\n"+"pigCoins = "+this.getPigCoins()+"\n"+"message = "+this.getMessage();
-    }
+	public String toString() {
+		return "hash = " + this.getHash() + "\n" + "prev_has = " + this.getHash() + "\n" + "pKey_Sender = "
+				+ this.getpKey_sender().hashCode() + "\n" + "pKey_Recipient = " + this.getpKey_recipient().hashCode()
+				+ "\n" + "pigCoins = " + this.getPigCoins() + "\n" + "message = " + this.getMessage();
+	}
 
 }
