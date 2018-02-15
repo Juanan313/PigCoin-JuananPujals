@@ -93,7 +93,21 @@ public class BlockChain {
 
     }
 
+    public void createTransaction(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins ,String message,byte[] signedTransaction) {
 
+        String hash = "Hash"+blockChain.size()+1;
+        String prev_hash = blockChain.getLast().getHash();
+        double `pigCoins = consumedCoins.getPigCoins();
+        Transaction transaction = new Transaction(hash, prev_hash, pigCoins, message);
+        transaction.setSignature(signedTransaction);
+        blockChain.add(transaction);
+    }
 
-    
+    public void processTransactions(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins,String message,byte[] signedTransaction) {
+
+        if (isSignatureValid(pKey_sender, message, signedTransaction) & isConsumedCoinValid(consumedCoins)) {
+            createTransaction(pKey_sender, pKey_recipient, consumedCoins, message, signedTransaction);
+        } else;
+        System.out.println("Esta transaccion ya ha sido utilizada");
+    }
 }

@@ -7,7 +7,7 @@ public class Transaction {
 	private String hash = "";
 	private String prev_hash = "";
 	private String message = "";
-	private int pigCoins = 0;
+	private double pigCoins = 0;
 	private PublicKey pKey_sender;
 	private PublicKey pKey_recipient;
 	private byte[] signature;
@@ -36,11 +36,11 @@ public class Transaction {
 		this.message = message;
 	}
 
-	public int getPigCoins() {
+	public double getPigCoins() {
 		return pigCoins;
 	}
 
-	public void setPigCoins(int pigCoins) {
+	public void setPigCoins(double pigCoins) {
 		this.pigCoins = pigCoins;
 	}
 
@@ -68,7 +68,7 @@ public class Transaction {
 		this.signature = signature;
 	}
 
-	public Transaction(String hash, String prev_hash, int pigCoins, String message) {
+	public Transaction(String hash, String prev_hash, double pigCoins, String message) {
 		this.setHash(hash);
 		this.setPrev_hash(prev_hash);
 		this.setMessage(message);
