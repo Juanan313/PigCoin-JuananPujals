@@ -11,6 +11,7 @@ public class BlockChainTest {
     Transaction transaccionTest;
     private Wallet walletOutput;
     private Wallet walletInput;
+    private Wallet walletVacia;
     private Transaction transaccionTest2;
     private BlockChain blockChainTest;
 
@@ -18,8 +19,10 @@ public class BlockChainTest {
     public void setUp() {
         walletOutput = new Wallet();
         walletInput = new Wallet();
+        walletVacia = new Wallet();
         walletOutput.generateKeyPair();
         walletInput.generateKeyPair();
+        walletVacia.generateKeyPair();
 
         transaccionTest = new Transaction("hash1", "0", 20, "You're the real mvpig!");
         transaccionTest.setpKey_sender(walletOutput.getAddress());
@@ -41,6 +44,7 @@ public class BlockChainTest {
 
         assertEquals(blockChainTest.getBlockChain().size(), 2);
     }
+    // Test isConsumedCoinValid , comprueba que la transaccion que se intenta realizar no se ha utilizado ya
     @Test
     public void isConsumedCoinValid() {
 
@@ -49,14 +53,26 @@ public class BlockChainTest {
         assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
     }
 
+    // Test load
     @Test
     public void loadInputTransactions() {
 
         blockChainTest.addOrigin(transaccionTest);
         blockChainTest.addOrigin(transaccionTest2);
 
-        blockChainTest.loadInputTransactions(walletInput);
 
-        assertEquals(blockChainTest.loadInputTransactions(walletInput).size(), 1);
+        assertEquals(blockChainTest.loadInputTransactions(walletInput.getAddress()).size(), 1);
+        assertEquals(blockChainTest.loadInputTransactions(walletVacia.getAddress()).size(), 0);
+    }
+
+    @Test
+    public void loadOutputTransactionsTest() {
+
+        blockChainTest.addOrigin(transaccionTest);
+        blockChainTest.addOrigin(transaccionTest2);
+
+
+        assertEquals(blockChainTest.loadOutputTransactions(walletInput.getAddress()).size(), 1);
+        assertEquals(blockChainTest.loadOutputTransactions(walletVacia.getAddress()).size(), 0);
     }
 }
