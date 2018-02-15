@@ -1,4 +1,4 @@
-package org.mvpigs.pigcoin;
+package org.mvpigs.PigCoins;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
