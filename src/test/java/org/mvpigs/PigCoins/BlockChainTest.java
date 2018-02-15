@@ -76,4 +76,12 @@ public class BlockChainTest {
     public void sumarizeOverloadTest() {
         blockChainTest.sumarize(1);
     }
+    @Test
+    public void loadWalletTest() {
+        blockChainTest.loadWallet(walletInput.getAddress());
+
+        walletInput.loadCoins(this.blockChainTest);
+        assertEquals(walletInput.getTotal_input(), 20);
+        assertEquals(walletInput.getTotal_output(), 10);
+    }
 }

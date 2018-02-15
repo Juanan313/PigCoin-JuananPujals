@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Wallet {
 
@@ -77,5 +78,20 @@ public class Wallet {
         KeyPair pair = GenSig.generateKeyPair();
         this.setSK(pair.getPrivate());
         this.setAddress(pair.getPublic());
+    }
+
+    public void loadCoins(BlockChain bChain) {
+
+        int[] totalTrans = bChain.loadWallet(this.getAddress());
+        this.setTotal_input(totalTrans[0]);
+        this.setTotal_output(totalTrans[1]);
+    }
+
+    public void loadInputTransactions(BlockChain bChain) {
+        this.setInputTransactions(bChain.loadInputTransactions(this.getAddress()));
+    }
+
+    public void loadOutputTransactions(BlockChain bChain) {
+        this.setOutputTransactions(bChain.loadOutputTransactions(this.getAddress()));
     }
 }

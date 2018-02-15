@@ -4,6 +4,8 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import javax.swing.Painter;
+
 public class BlockChain {
 
     private LinkedList<Transaction> blockChain = new LinkedList<Transaction>();
@@ -38,6 +40,8 @@ public class BlockChain {
         }
     }
 
+
+
     /* Comprueba en el blockChain todas las transacciones cuya pkRecipt coincida con la Address de la Wallet que le pasamos,
      y las devuelve en un lista */
 
@@ -63,5 +67,26 @@ public class BlockChain {
             }   
         } return outPutTransactions;
     }
+
+    public int[] loadWallet(PublicKey address) {
+        int totalInput = 0;
+        int totalOutput = 0;
+        int[] totalTrans = new int[2];
+
+        for (Transaction transaccion : this.loadInputTransactions(address)) {
+            totalInput += transaccion.getPigCoins();
+        }
+        totalTrans[0] = totalInput;
+
+        for (Transaction transaccion : this.loadOutputTransactions(address)) {
+            totalOutput += transaccion.getPigCoins();
+        }
+        totalTrans[1] = totalOutput;
+
+        return totalTrans;
+
+    }
+
+
     
 }
