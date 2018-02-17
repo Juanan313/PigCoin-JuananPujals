@@ -12,8 +12,8 @@ import org.junit.Test;
 public class BlockChainTest {
 
     Transaction transaccionTest;
-    private Wallet walletOutput;
-    private Wallet walletInput;
+    private Wallet wallet1;
+    private Wallet wallet2;
     private Wallet walletVacia;
     private Transaction transaccionTest2;
     private BlockChain blockChainTest;
@@ -21,21 +21,21 @@ public class BlockChainTest {
 
     @Before
     public void setUp() {
-        walletOutput = new Wallet();
-        walletInput = new Wallet();
+        wallet1 = new Wallet();
+        wallet2 = new Wallet();
         walletVacia = new Wallet();
-        walletOutput.generateKeyPair();
-        walletInput.generateKeyPair();
+        wallet1.generateKeyPair();
+        wallet2.generateKeyPair();
         walletVacia.generateKeyPair();
 
         transaccionTest = new Transaction("hash1", "0", 20, "You're the real mvpig!");
-        transaccionTest.setpKey_sender(walletOutput.getAddress());
-        transaccionTest.setpKey_recipient(walletInput.getAddress());
-        transaccionTest.setSignature(GenSig.sign(walletOutput.getSKey(),transaccionTest.getMessage()));
+        transaccionTest.setpKey_sender(wallet1.getAddress());
+        transaccionTest.setpKey_recipient(wallet2.getAddress());
+        transaccionTest.setSignature(GenSig.sign(wallet1.getSKey(),transaccionTest.getMessage()));
 
         transaccionTest2 = new Transaction("hash2", "hash1", 10, "You're not the real mvpig!");
-        transaccionTest2.setpKey_sender(walletInput.getAddress());
-        transaccionTest2.setpKey_recipient(walletOutput.getAddress());
+        transaccionTest2.setpKey_sender(wallet2.getAddress());
+        transaccionTest2.setpKey_recipient(wallet1.getAddress());
 
         blockChainTest = new BlockChain();
 
@@ -43,9 +43,9 @@ public class BlockChainTest {
         blockChainTest.addOrigin(transaccionTest2);
 
         validTransaction = new Transaction("hash3", "hash2", 25, "ya queda menos");
-        validTransaction.setpKey_sender(walletOutput.getAddress());
+        validTransaction.setpKey_sender(wallet1.getAddress());
         validTransaction.setpKey_sender(walletVacia.getAddress());
-        validTransaction.setSignature(GenSig.sign(walletOutput.getSKey(), validTransaction.getMessage()));
+        validTransaction.setSignature(GenSig.sign(wallet1.getSKey(), validTransaction.getMessage()));
     }
 
     // Test AddOrigin - añade transacciones a BlockChain
@@ -66,33 +66,33 @@ public class BlockChainTest {
     @Test
     public void loadInputTransactions() {
 
-        assertEquals(blockChainTest.loadInputTransactions(walletInput.getAddress()).size(), 1);
+        assertEquals(blockChainTest.loadInputTransactions(wallet2.getAddress()).size(), 1);
         assertEquals(blockChainTest.loadInputTransactions(walletVacia.getAddress()).size(), 0);
     }
 
     @Test
     public void loadOutputTransactionsTest() {
 
-        assertEquals(blockChainTest.loadOutputTransactions(walletInput.getAddress()).size(), 1);
+        assertEquals(blockChainTest.loadOutputTransactions(wallet2.getAddress()).size(), 1);
         assertEquals(blockChainTest.loadOutputTransactions(walletVacia.getAddress()).size(), 0);
     }
 
     @Test
     public void sumarizeTest() {
-        blockChainTest.sumarize();
+        blockChainTest.summarize();
     }
 
     @Test
     public void sumarizeOverloadTest() {
-        blockChainTest.sumarize(1);
+        blockChainTest.summarize(1);
     }
     @Test
     public void loadWalletTest() {
-        blockChainTest.loadWallet(walletInput.getAddress());
+        blockChainTest.loadWallet(wallet2.getAddress());
 
-        walletInput.loadCoins(this.blockChainTest);
-        assertEquals(walletInput.getTotal_input(), 20, 0.1);
-        assertEquals(walletInput.getTotal_output(), 10, 0.1);
+        wallet2.loadCoins(this.blockChainTest);
+        assertEquals(wallet2.getTotal_input(), 20, 0.1);
+        assertEquals(wallet2.getTotal_output(), 10, 0.1);
     }
     @Test
     public void isSignaturaValid() {
@@ -102,7 +102,7 @@ public class BlockChainTest {
     @Test
     public void crearTransaction() {
 
-        PublicKey pKey_sender = walletOutput.getAddress();
+        PublicKey pKey_sender = wallet1.getAddress();
         PublicKey pKey_recipient = walletVacia.getAddress();
         Transaction consumedCoins = validTransaction;
         String message = validTransaction.getMessage();

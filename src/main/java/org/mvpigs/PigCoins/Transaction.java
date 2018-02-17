@@ -12,6 +12,29 @@ public class Transaction {
 	private PublicKey pKey_recipient;
 	private byte[] signature;
 
+	public Transaction() {
+
+	}
+
+	public Transaction(String hash, String prev_hash, double pigCoins, String message) {
+		this.setHash(hash);
+		this.setPrev_hash(prev_hash);
+		this.setMessage(message);
+		this.setPigCoins(pigCoins);
+
+	}
+
+	public Transaction(String hash, String prev_hash, PublicKey pKey_sender, PublicKey pKey_recipient, double pigCoins,
+			String message) {
+		this.setHash(hash);
+		this.setPrev_hash(prev_hash);
+		this.setpKey_sender(pKey_sender);
+		this.setpKey_recipient(pKey_recipient);
+		this.setPigCoins(pigCoins);
+		this.setMessage(message);
+
+	}
+
 	public String getHash() {
 		return hash;
 	}
@@ -66,14 +89,6 @@ public class Transaction {
 
 	public void setSignature(byte[] signature) {
 		this.signature = signature;
-	}
-
-	public Transaction(String hash, String prev_hash, double pigCoins, String message) {
-		this.setHash(hash);
-		this.setPrev_hash(prev_hash);
-		this.setMessage(message);
-		this.setPigCoins(pigCoins);
-
 	}
 
 	public String toString() {

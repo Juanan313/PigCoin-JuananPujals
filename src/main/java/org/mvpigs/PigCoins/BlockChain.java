@@ -2,8 +2,9 @@ package org.mvpigs.PigCoins;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
-
+import java.util.Map;
 import javax.swing.Painter;
 
 public class BlockChain {
@@ -15,14 +16,14 @@ public class BlockChain {
         blockChain.add(transaction);
     }
 
-    public void sumarize() {
+    public void summarize() {
         
         for (Transaction transaccion : blockChain) {
             System.out.println(transaccion.toString());
         }
     }
 
-    public void sumarize(int index) {
+    public void summarize(int index) {
         Transaction transaction = blockChain.get(index);
         System.out.println(transaction.toString());
     }
@@ -62,26 +63,28 @@ public class BlockChain {
         ArrayList<Transaction> outPutTransactions = new ArrayList<Transaction>();
 
         for (Transaction transaccion : blockChain) {
-            if (transaccion.getpKey_recipient() == address) {
+            if (transaccion.getpKey_sender() == address) {
             outPutTransactions.add(transaccion);
             }   
         } return outPutTransactions;
     }
 
-    public double[] loadWallet(PublicKey address) {
+    public Map<String,Double> loadWallet(PublicKey address) {
         double totalInput = 0d;
         double totalOutput = 0d;
-        double[] totalTrans = new double[2];
+        Map<String,Double> totalTrans = new HashMap<String,Double>();
 
         for (Transaction transaccion : this.loadInputTransactions(address)) {
             totalInput += transaccion.getPigCoins();
+            System.out.println(totalInput);
         }
-        totalTrans[0] = totalInput;
+        totalTrans.put("totalInput", Double.valueOf(totalInput));
 
         for (Transaction transaccion : this.loadOutputTransactions(address)) {
             totalOutput += transaccion.getPigCoins();
+            System.out.println(totalOutput);
         }
-        totalTrans[1] = totalOutput;
+        totalTrans.put("totalOutput", Double.valueOf(totalOutput));
 
         return totalTrans;
 
@@ -97,7 +100,7 @@ public class BlockChain {
 
         String hash = "Hash"+blockChain.size()+1;
         String prev_hash = blockChain.getLast().getHash();
-        double `pigCoins = consumedCoins.getPigCoins();
+        double pigCoins = consumedCoins.getPigCoins();
         Transaction transaction = new Transaction(hash, prev_hash, pigCoins, message);
         transaction.setSignature(signedTransaction);
         blockChain.add(transaction);

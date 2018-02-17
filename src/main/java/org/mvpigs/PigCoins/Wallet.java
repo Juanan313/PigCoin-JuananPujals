@@ -5,6 +5,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import org.mvpigs.PigCoins.Transaction;
 import org.mvpigs.PigCoins.BlockChain;
 import org.mvpigs.PigCoins.GenSig;
@@ -85,9 +86,9 @@ public class Wallet {
 
     public void loadCoins(BlockChain bChain) {
 
-        double[] totalTrans = bChain.loadWallet(this.getAddress());
-        this.setTotal_input(totalTrans[0]);
-        this.setTotal_output(totalTrans[1]);
+        Map<String,Double> totalTrans = bChain.loadWallet(this.getAddress());
+        this.setTotal_input(totalTrans.get("totalInput"));
+        this.setTotal_output(totalTrans.get("totalOutput"));
     }
 
     public void loadInputTransactions(BlockChain bChain) {
