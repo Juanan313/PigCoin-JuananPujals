@@ -95,10 +95,10 @@ public class BlockChain {
 
     public void createTransaction(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins ,String message,byte[] signedTransaction) {
 
-        String hash = "Hash"+this.getBlockChain().size()+1;
+        String hash = "Hash"+(this.getBlockChain().size()+1);
         String prev_hash = this.getBlockChain().getLast().getHash();
         double pigCoins = consumedCoins.getPigCoins();
-        Transaction transaction = new Transaction(hash, prev_hash, pigCoins, message);
+        Transaction transaction = new Transaction(hash, prev_hash, pKey_sender, pKey_recipient, pigCoins, message);
         transaction.setSignature(signedTransaction);
         if (this.isConsumedCoinValid(transaction)) {
         blockChain.add(transaction);

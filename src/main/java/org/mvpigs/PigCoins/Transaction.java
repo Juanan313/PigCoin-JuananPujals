@@ -100,7 +100,7 @@ public class Transaction {
 	}
 
 	public String toString() {
-		return "hash = " + this.getHash() + "\n" + "prev_has = " + this.getHash() + "\n" + "pKey_Sender = "
+		return "hash = " + this.getHash() + "\n" + "prev_has = " + this.getPrev_hash() + "\n" + "pKey_Sender = "
 				+ this.getpKey_sender().hashCode() + "\n" + "pKey_Recipient = " + this.getpKey_recipient().hashCode()
 				+ "\n" + "pigCoins = " + this.getPigCoins() + "\n" + "message = " + this.getMessage();
 	}

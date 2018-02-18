@@ -95,8 +95,10 @@ public class BlockChainTest {
         wallet2.loadCoins(this.blockChainTest);
         assertEquals(wallet2.getTotal_input(), 20, 0.1);
         assertEquals(wallet2.getTotal_output(), 10, 0.1);
+        assertEquals(wallet2.getBalance(),10,0.1);
         assertEquals(wallet1.getTotal_input(), 10, 0.1);
         assertEquals(wallet1.getTotal_output(), 20, 0.1);
+        assertEquals(wallet1.getBalance(), -10, 0.1);
         
     }
     @Test
@@ -120,6 +122,7 @@ public class BlockChainTest {
     public void processTransactionTest() {
 
         blockChainTest.processTransactions(validTransaction.getpKey_sender(), validTransaction.getpKey_recipient(), validTransaction, validTransaction.getMessage(), validTransaction.getSignature());
+        sumarizeTest();
         }
     }
 

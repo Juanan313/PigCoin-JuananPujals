@@ -64,8 +64,9 @@ public class WalletTest {
     public void walletLoadCoins() {
 
         walletTest.loadCoins(blockChainTest);
-        assertEquals(walletTest.getTotal_input(), 10, 0.1);
-        assertEquals(walletTest.getTotal_output(), 20, 0.1);
+        assertEquals(walletTest.getTotal_input(), 20, 0.1);
+        assertEquals(walletTest.getTotal_output(), 10, 0.1);
+        assertEquals(walletTest.getBalance(), 10, 0.1);
     }
 
 }
