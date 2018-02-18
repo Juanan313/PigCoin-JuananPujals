@@ -34,11 +34,11 @@ public class BlockChain {
 
     public Boolean isConsumedCoinValid(Transaction consumedCoins) {
 
-        if (blockChain.contains(consumedCoins)) {
-            return false;
-        } else {
-            return true;
-        }
+        for (Transaction transaction : this.getBlockChain()) {
+            if (transaction.equals(consumedCoins)){
+                return false;
+            } else;
+        } return true;
     }
 
 
@@ -76,13 +76,11 @@ public class BlockChain {
 
         for (Transaction transaccion : this.loadInputTransactions(address)) {
             totalInput += transaccion.getPigCoins();
-            System.out.println(totalInput);
         }
         totalTrans.put("totalInput", Double.valueOf(totalInput));
 
         for (Transaction transaccion : this.loadOutputTransactions(address)) {
             totalOutput += transaccion.getPigCoins();
-            System.out.println(totalOutput);
         }
         totalTrans.put("totalOutput", Double.valueOf(totalOutput));
 
@@ -110,7 +108,14 @@ public class BlockChain {
 
         if (isSignatureValid(pKey_sender, message, signedTransaction) & isConsumedCoinValid(consumedCoins)) {
             createTransaction(pKey_sender, pKey_recipient, consumedCoins, message, signedTransaction);
-        } else;
-        System.out.println("Esta transaccion ya ha sido utilizada");
+        } else {
+            if (isSignatureValid(pKey_sender, message, signedTransaction) != true) {
+                System.out.println("Fallo al verifica signedTransaction");
+            } else {
+                if (isConsumedCoinValid(consumedCoins)) {
+                    System.out.println("Transaccion consumida");
+                }
+            }
+        }
     }
 }

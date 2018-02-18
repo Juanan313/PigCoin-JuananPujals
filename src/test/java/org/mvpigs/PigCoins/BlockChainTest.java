@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.security.PublicKey;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,16 +35,15 @@ public class BlockChainTest {
         transaccionTest2.setpKey_sender(wallet2.getAddress());
         transaccionTest2.setpKey_recipient(wallet1.getAddress());
 
+        validTransaction = new Transaction("hash3", "hash2",wallet1.getAddress(),walletVacia.getAddress(),25, "ya queda menos");
+        validTransaction.setSignature(GenSig.sign(wallet1.getSKey(), validTransaction.getMessage()));
+
         blockChainTest = new BlockChain();
 
         blockChainTest.addOrigin(transaccionTest);
         blockChainTest.addOrigin(transaccionTest2);
-
-        validTransaction = new Transaction("hash3", "hash2", 25, "ya queda menos");
-        validTransaction.setpKey_sender(wallet1.getAddress());
-        validTransaction.setpKey_sender(walletVacia.getAddress());
-        validTransaction.setSignature(GenSig.sign(wallet1.getSKey(), validTransaction.getMessage()));
-    }
+        
+    }    
 
     // Test AddOrigin - añade transacciones a BlockChain
     @Test
@@ -72,7 +69,7 @@ public class BlockChainTest {
 
     @Test
     public void loadOutputTransactionsTest() {
-
+        
         assertEquals(blockChainTest.loadOutputTransactions(wallet2.getAddress()).size(), 1);
         assertEquals(blockChainTest.loadOutputTransactions(walletVacia.getAddress()).size(), 0);
     }
@@ -99,17 +96,21 @@ public class BlockChainTest {
 
        assertTrue(blockChainTest.isSignatureValid(transaccionTest.getpKey_sender(), transaccionTest.getMessage(), transaccionTest.getSignature()));
     }
+
     @Test
-    public void crearTransaction() {
-
-        PublicKey pKey_sender = wallet1.getAddress();
-        PublicKey pKey_recipient = walletVacia.getAddress();
-        Transaction consumedCoins = validTransaction;
-        String message = validTransaction.getMessage();
-        byte[] signedTransaction = validTransaction.getSignature();
-
-        blockChainTest.processTransactions(pKey_sender, pKey_recipient, consumedCoins, message, signedTransaction);
-        assertTrue(blockChainTest.getBlockChain().contains(validTransaction));
+    public void isConsumedCoinValidTest() {
+        assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
+        assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest2));
+        assertTrue(blockChainTest.isConsumedCoinValid(validTransaction));
 
     }
- }
+    
+    @Test
+    public void processTransactionTest() {
+
+        blockChainTest.processTransactions(validTransaction.getpKey_sender(), validTransaction.getpKey_recipient(), validTransaction, validTransaction.getMessage(), validTransaction.getSignature());
+        
+        blockChainTest.summarize();
+        }
+    }
+

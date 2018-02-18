@@ -1,10 +1,11 @@
 package org.mvpigs.PigCoins;
 
 import java.security.KeyPair;
-import java.util.Map;
+import org.junit.Test;
 
-public class App {
+public class MainTest {
 
+    @Test
     public static void main( String[] args )
     {
         /**
@@ -51,9 +52,8 @@ public class App {
         System.out.println("\n" + "Ver transaccion" + "\n" +
                                   "==============="        );
 
-        Transaction trx = new Transaction();
-        trx = new Transaction("hash_1", "0", wallet_1.getAddress(), wallet_2.getAddress(), 20, "a flying pig!");
-        
+        Transaction trx = new Transaction("hash_1", "0", wallet_1.getAddress(), wallet_2.getAddress(), 20, "a flying pig!");
+
         System.out.println(trx.toString());
 
         /**
@@ -182,117 +182,5 @@ public class App {
          * 
          * A continuacion se detalla la responsabilidad de cada metodo.
          */
-        
-        System.out.println("\n" + ">>>>>>>>>>>> Wallet_1 envia transaccion de pigcoins a wallet_2 >>>>>>>>>>>>" + "\n");
-
-        /**
-         * Primero has de recolectar los suficientes pigcoins de tu wallet
-         * Para ello has de eliminar de las transacciones entrantes de la wallet
-         * las que ya se han utilizado para enviar pigcoins
-         */       
-
-        /**
-         * Los pigcoins son indivisibles, asi que si necesitas 5.2 y no tienes
-         * ninguna transaccion entrante exacta de 5.2, has de realizar un CHANGE ADDRESS (CA): 
-         * Consiste en reutilizar una transaccion entrante mayor que 5.2, por ejemplo 10,
-         * y enviar dos transacciones:
-         * - una transaccion de 5.2 al destinatario
-         * - otra transaccion de 10 - 5.2 = 4.8 a ti mismo/a
-         * Ten cuidado: no puedes utilizar transacciones entrantes (pigcoins)
-         * que ya hayas enviado con anterioridad o el blockchain rechazara las nuevas
-         */
-
-        Double pigcoins = 25d;
-        Map<String, Double> consumedCoins = wallet_1.collectCoins(pigcoins);
-        System.out.println("Pigcoins enviados a la wallet_2 y transacciones consumidas: " + consumedCoins);
-
-        /**
-         * Una vez que recolectes los pigcoins (transacciones) de tu wallet
-         * envialas al blockchain.
-         * Debes firmar el mensaje con tu clave privada.
-         */
-        
-        String message = "he roto la hucha :(";
-        byte[] signedTransaction = wallet_1.signTransaction(message); // usa GenSig.sign()
-        wallet_1.sendCoins(wallet_2.getAddress(), pigcoins, message, bChain); // usa wallet.collectCoins() y bChain.processTransactions()
-        
-        /**
-         *  wallet.sendCoins() invoca a 
-         *  bChain.processTransactions(wallet_1.getAddress(), wallet_2.getAddress(), consumedCoins, message, signedTransaction);
-         */
-
-        /**
-         * El blockchain debe chequear que las transacciones entrantes no proceden
-         * de transacciones que ya se han utilizado (gastado), mediante el metodo:
-         * 
-         * boolean bChain.isConsumedCoinValid(consumedCoins);
-         */
-                  
-        /** 
-         * El blockchain debe chequear que las transacciones sean autenticas, 
-         * es decir, que la firma del mensaje sea autentica, mediante el metodo:
-         * 
-         * boolean bChain.isSignatureValid(public_Key, message, signedTransaction)
-         * 
-         * Este metodo usa GenSig.verify()
-         */
-        
-        /**
-         * Si el blockchain comprueba que los pigcoins que envias satisfacen 
-         * las dos condiciones anteriores,incluye estas transacciones 
-         * en la cadena de bloques 
-         * 
-         * bChain.processTransactions(wallet_1.getAddress(), wallet_2.getAddress(), consumedCoins, message, signedTransaction);
-         * bChain.createTransaction(pKey_sender, pKey_recipient, consumedCoins,message, signedTransaction);
-         */
-
-        System.out.println("\n" + "Ver el total de pigcoins de las dos wallet" + "\n" + 
-                                  "=========================================="            );
-        // comprobamos que la transaccion se ha realizado
-        wallet_1.loadCoins(bChain);
-        wallet_1.loadInputTransactions(bChain);
-        wallet_1.loadOutputTransactions(bChain);
-        System.out.println(wallet_1.toString());
-
-        wallet_2.loadCoins(bChain);
-        wallet_2.loadInputTransactions(bChain);
-        wallet_2.loadOutputTransactions(bChain);
-        System.out.println(wallet_2.toString());  
-
-        System.out.println("\n" + "Ver BlockChain" + "\n" + 
-                                  "=============="        );  
-        bChain.summarize();
-
-        System.out.println("\n" + ">>>>>>>>>>>> Wallet_1 envia transaccion de 100 pigcoins a wallet_2 >>>>>>>>>>>>" + "\n");
-
-        wallet_1.sendCoins(wallet_2.getAddress(), 100d, "no tengo tantos :(", bChain);
-
-        System.out.println("\n" + "Ver el total de pigcoins de las dos wallet" + "\n" + 
-                                  "=========================================="            );
-        wallet_1.loadCoins(bChain);
-        wallet_1.loadInputTransactions(bChain);
-        wallet_1.loadOutputTransactions(bChain);
-        System.out.println(wallet_1.toString());
-
-        wallet_2.loadCoins(bChain);
-        wallet_2.loadInputTransactions(bChain);
-        wallet_2.loadOutputTransactions(bChain);
-        System.out.println(wallet_2.toString());  
-
-        System.out.println("\n" + ">>>>>>>>>>>> Wallet_1 envia transaccion de 2.5 pigcoins a wallet_2 >>>>>>>>>>>>" + "\n");
-
-        wallet_1.sendCoins(wallet_2.getAddress(), 2.5d, "", bChain);
-
-        System.out.println("\n" + "Ver el total de pigcoins de las dos wallet" + "\n" + 
-                                  "=========================================="            );
-        wallet_1.loadCoins(bChain);
-        wallet_1.loadInputTransactions(bChain);
-        wallet_1.loadOutputTransactions(bChain);
-        System.out.println(wallet_1.toString());
-
-        wallet_2.loadCoins(bChain);
-        wallet_2.loadInputTransactions(bChain);
-        wallet_2.loadOutputTransactions(bChain);
-        System.out.println(wallet_2.toString());
-    }
+         }
 }
