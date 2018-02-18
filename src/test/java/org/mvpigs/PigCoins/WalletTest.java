@@ -12,8 +12,10 @@ public class WalletTest {
     Wallet walletTest;
     Wallet walletTest2;
     Wallet walletVacia;
-	private Transaction transaccionTest;
-	private BlockChain blockChainTest;
+    private Transaction transaccionTest;
+    private Transaction transaccionTest2;
+    private BlockChain blockChainTest;
+    
 
     @Before
     public void setUp() {
@@ -27,14 +29,14 @@ public class WalletTest {
         transaccionTest.setpKey_sender(walletTest.getAddress());
         transaccionTest.setpKey_recipient(walletTest2.getAddress());
 
-        transaccionTest = new Transaction("hash2", "hash1", 10, "You're not the real mvpig!");
-        transaccionTest.setpKey_sender(walletTest2.getAddress());
-        transaccionTest.setpKey_recipient(walletTest.getAddress());
+        transaccionTest2 = new Transaction("hash2", "hash1", 10, "You're not the real mvpig!");
+        transaccionTest2.setpKey_sender(walletTest2.getAddress());
+        transaccionTest2.setpKey_recipient(walletTest.getAddress());
 
         blockChainTest = new BlockChain();
 
         blockChainTest.addOrigin(transaccionTest);
-        blockChainTest.addOrigin(transaccionTest);
+        blockChainTest.addOrigin(transaccionTest2);
     }
 
     /* Compruebo que la funcion GenerateKeyPair funcione*/
@@ -64,9 +66,9 @@ public class WalletTest {
     public void walletLoadCoins() {
 
         walletTest.loadCoins(blockChainTest);
-        assertEquals(walletTest.getTotal_input(), 20, 0.1);
-        assertEquals(walletTest.getTotal_output(), 10, 0.1);
-        assertEquals(walletTest.getBalance(), 10, 0.1);
+        assertEquals(walletTest.getTotal_input(), 10, 0.1);
+        assertEquals(walletTest.getTotal_output(), 20, 0.1);
+        assertEquals(walletTest.getBalance(), -10, 0.1);
     }
 
 }
