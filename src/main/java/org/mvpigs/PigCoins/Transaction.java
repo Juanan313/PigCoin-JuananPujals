@@ -24,6 +24,14 @@ public class Transaction {
 
 	}
 
+	public Transaction(PublicKey pKey_sender, PublicKey pKey_recipient, double pigCoins,
+	String message) {
+		this.setpKey_sender(pKey_sender);
+		this.setpKey_recipient(pKey_recipient);
+		this.setPigCoins(pigCoins);
+		this.setMessage(message);
+	}
+
 	public Transaction(String hash, String prev_hash, PublicKey pKey_sender, PublicKey pKey_recipient, double pigCoins,
 			String message) {
 		this.setHash(hash);

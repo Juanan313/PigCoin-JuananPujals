@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import javax.swing.Painter;
 
 public class BlockChain {
 
@@ -96,26 +95,20 @@ public class BlockChain {
 
     public void createTransaction(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins ,String message,byte[] signedTransaction) {
 
-        String hash = "Hash"+blockChain.size()+1;
-        String prev_hash = blockChain.getLast().getHash();
+        String hash = "Hash"+this.getBlockChain().size()+1;
+        String prev_hash = this.getBlockChain().getLast().getHash();
         double pigCoins = consumedCoins.getPigCoins();
         Transaction transaction = new Transaction(hash, prev_hash, pigCoins, message);
         transaction.setSignature(signedTransaction);
+        if (this.isConsumedCoinValid(transaction)) {
         blockChain.add(transaction);
+    }
     }
 
     public void processTransactions(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins,String message,byte[] signedTransaction) {
 
-        if (isSignatureValid(pKey_sender, message, signedTransaction) & isConsumedCoinValid(consumedCoins)) {
+        if (isSignatureValid(pKey_sender, message, signedTransaction)) {
             createTransaction(pKey_sender, pKey_recipient, consumedCoins, message, signedTransaction);
-        } else {
-            if (isSignatureValid(pKey_sender, message, signedTransaction) != true) {
-                System.out.println("Fallo al verifica signedTransaction");
-            } else {
-                if (isConsumedCoinValid(consumedCoins)) {
-                    System.out.println("Transaccion consumida");
-                }
-            }
-        }
+        } 
     }
 }
