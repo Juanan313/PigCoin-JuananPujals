@@ -57,7 +57,7 @@ Historias de usuario:
 
 Realiza a mano alzada -o con la aplicación que prefieras- un pequeño diagrama de clases UML que muestre la relación entre las clases que has construido, con su interfaz pública y privada.
 
-![UML](UMLPigCoin.png)
+![UML](./UMLPigCoin.png)
 
 ## Código
 
