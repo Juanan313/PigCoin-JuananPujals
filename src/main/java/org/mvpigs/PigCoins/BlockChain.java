@@ -35,9 +35,9 @@ public class BlockChain {
 
         for (Transaction transaction : this.getBlockChain()) {
             if (transaction.equals(consumedCoins)){
-                return false;
+                return true;
             } else;
-        } return true;
+        } return false;
     }
 
 
@@ -100,14 +100,12 @@ public class BlockChain {
         double pigCoins = consumedCoins.getPigCoins();
         Transaction transaction = new Transaction(hash, prev_hash, pKey_sender, pKey_recipient, pigCoins, message);
         transaction.setSignature(signedTransaction);
-        if (this.isConsumedCoinValid(transaction)) {
         blockChain.add(transaction);
-    }
     }
 
     public void processTransactions(PublicKey pKey_sender,PublicKey pKey_recipient, Transaction consumedCoins,String message,byte[] signedTransaction) {
 
-        if (isSignatureValid(pKey_sender, message, signedTransaction)) {
+        if (isSignatureValid(pKey_sender, message, signedTransaction) & isConsumedCoinValid(consumedCoins)) {
             createTransaction(pKey_sender, pKey_recipient, consumedCoins, message, signedTransaction);
         } 
     }
