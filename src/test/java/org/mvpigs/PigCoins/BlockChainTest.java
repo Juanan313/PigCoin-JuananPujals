@@ -57,8 +57,8 @@ public class BlockChainTest {
     @Test
     public void isConsumedCoinValid() {
 
-        assertTrue(blockChainTest.isConsumedCoinValid(validTransaction));
-        assertFalse(blockChainTest.isConsumedCoinValid(transaccionTest));
+        assertFalse(blockChainTest.isConsumedCoinValid(validTransaction));
+        assertTrue(blockChainTest.isConsumedCoinValid(transaccionTest));
     }
 
     // Test load
