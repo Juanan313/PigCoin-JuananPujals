@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class BlockChain {
 
@@ -47,25 +48,29 @@ public class BlockChain {
 
     public ArrayList<Transaction> loadInputTransactions(PublicKey address) {
         
-        ArrayList<Transaction> inputTransactions = new ArrayList<Transaction>();
-
+        
+         ArrayList<Transaction> inputTransactions;
+        inputTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_recipient().equals(address)).collect(Collectors.toCollection(ArrayList<Transaction>::new));
+        /*
         for (Transaction transaccion : blockChain) {
             if (transaccion.getpKey_recipient() == address) {
                 inputTransactions.add(transaccion);
             }   
-        }
+        }*/
         return inputTransactions;
     }
 
     public ArrayList<Transaction> loadOutputTransactions(PublicKey address) {
 
-        ArrayList<Transaction> outPutTransactions = new ArrayList<Transaction>();
-
+        ArrayList<Transaction> outPutTransactions;
+        outPutTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_sender().equals(address)).collect(Collectors.toCollection(ArrayList<Transaction>::new));
+        /*
         for (Transaction transaccion : blockChain) {
             if (transaccion.getpKey_sender() == address) {
             outPutTransactions.add(transaccion);
             }   
-        } return outPutTransactions;
+        } */
+        return outPutTransactions;
     }
 
     public Map<String,Double> loadWallet(PublicKey address) {
