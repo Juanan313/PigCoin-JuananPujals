@@ -47,10 +47,10 @@ public class BlockChain {
      y las devuelve en un lista */
 
     public ArrayList<Transaction> loadInputTransactions(PublicKey address) {
-        
-        
-         ArrayList<Transaction> inputTransactions;
-        inputTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_recipient().equals(address)).collect(Collectors.toCollection(ArrayList<Transaction>::new));
+
+        ArrayList<Transaction> inputTransactions;
+        inputTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_recipient().equals(address))
+                .collect(Collectors.toCollection(ArrayList<Transaction>::new));
         /*
         for (Transaction transaccion : blockChain) {
             if (transaccion.getpKey_recipient() == address) {
@@ -63,7 +63,8 @@ public class BlockChain {
     public ArrayList<Transaction> loadOutputTransactions(PublicKey address) {
 
         ArrayList<Transaction> outPutTransactions;
-        outPutTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_sender().equals(address)).collect(Collectors.toCollection(ArrayList<Transaction>::new));
+        outPutTransactions = getBlockChain().stream().filter(transact -> transact.getpKey_sender().equals(address))
+                .collect(Collectors.toCollection(ArrayList<Transaction>::new));
         /*
         for (Transaction transaccion : blockChain) {
             if (transaccion.getpKey_sender() == address) {
